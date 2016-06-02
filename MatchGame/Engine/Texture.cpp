@@ -7,17 +7,30 @@
 //
 
 #include "Texture.hpp"
-
+#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #include <OpenGL/glu.h>
+#include <map>
 
+using namespace std;
 
-Texture::Texture(const char* filename)
-: mSurface(IMG_Load(filename), SDL_FreeSurface)
-, mTextureId(new unsigned int, &DeleteTexture) {
+shared_ptr<Texture> Texture::LoadTexture(const string & path)
+{
+    static map<const string, weak_ptr<Texture> > cache;
+    shared_ptr<Texture> sp = cache[path].lock();
+    if (!sp)
+        cache[path] = sp = shared_ptr<Texture>(new Texture(path));
+    return sp;
+}
+
+Texture::Texture(const string & filename)
+: mSurface(IMG_Load(filename.c_str()), SDL_FreeSurface)
+, mTextureId(new unsigned int, &DeleteTexture)
+, mReferenceCount(0){
+    cout << "Loading Texture" << filename << endl;
     if (mSurface == nullptr) {
         throw std::runtime_error(std::string("Unable to load texture ") + filename);
     }
