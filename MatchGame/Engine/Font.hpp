@@ -20,6 +20,8 @@ struct Glyph
     int y;
     int w;
     int h;
+    int offsetX;
+    int offsetY;
 };
 
 struct GlyphInfo;
@@ -30,7 +32,7 @@ class Font
 {
 public:
     Font(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex);
-    void Render(const std::string& text, float x, float y, float rotation = 0.f);
+    void Render(const std::string& text, float x, float y, float scale = 1.0f, float rotation = 0.f);
     void Render(const std::string& text, const glm::mat4& transform);
     inline void SetScale(float scale){mScale = scale;}
 private:

@@ -14,6 +14,7 @@
 #include "Texture.hpp"
 
 const static int GLYPH_OFFSET = 31;
+const static float FLOAT_PRECISION = 0.00001f;
 
 struct GlyphInfo
 {
@@ -23,6 +24,8 @@ struct GlyphInfo
     float maxV;
     int width;
     int height;
+    int offsetX;
+    int offsetY;
     
     GlyphInfo(Glyph& glyph, int texWidth, int texHeight)
     {
@@ -32,6 +35,8 @@ struct GlyphInfo
         maxV = (float)(glyph.y + glyph.h) / texHeight;
         width = glyph.w;
         height = glyph.h;
+        offsetX = glyph.offsetX;
+        offsetY = glyph.offsetY;
     }
 };
 
@@ -50,14 +55,16 @@ Font::Font(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex)
     }
 }
 
-void Font::Render(const std::string& text, float x, float y, float rotation)
+void Font::Render(const std::string& text, float x, float y, float scale, float rotation)
 {
     glm::mat4 mat;
     mat = glm::translate(mat, glm::vec3(x, y, 0.f));
+    
     if (rotation)
-    {
         mat = glm::rotate(mat, rotation, glm::vec3(0.f, 0.f, 1.f));
-    }
+    
+    if (fabsf(scale - 1.0f) > FLOAT_PRECISION)
+        mat = glm::scale(mat, glm::vec3(scale, scale, 1.f));
 
     Render(text, mat);
 }
@@ -68,42 +75,44 @@ void Font::Render(const std::string& text, const glm::mat4& transform)
         return;
     glLoadMatrixf(reinterpret_cast<const float*>(&transform));
 
-    glm::vec4 coordTopLeft = glm::vec4(0, 0, 0, 1);
-    glm::vec4 coordBottomRight = glm::vec4(0, 0, 0, 1);
+    glm::vec4 topLeft = glm::vec4(0, 0, 0, 1);
+    glm::vec4 bottomRight = glm::vec4(0, 0, 0, 1);
     glBegin( GL_QUADS );
     mTexture->Bind();
     const char* textChar = text.c_str();
+    
     char c;
-    glm::vec4 coordCache[2];
     while ((c = *textChar++) != '\0')
     {
         const GlyphInfo* glyph = GetGlyphInfo(c);
         if (glyph)
         {
-            coordBottomRight.x = coordTopLeft.x + glyph->width * mScale;
-            coordBottomRight.y = glyph->height * mScale;
+            topLeft.x += glyph->offsetX;
+            topLeft.y += glyph->offsetY;
             
-            coordCache[0] = coordTopLeft;
-            coordCache[1] = coordBottomRight;
+            bottomRight.x = topLeft.x + glyph->width * mScale;
+            bottomRight.y = topLeft.y + glyph->height * mScale;
             
             // top left
             glTexCoord2f(glyph->minU, glyph->minV);
-            glVertex2f(coordCache[0].x, coordCache[0].y);
+            glVertex2f(topLeft.x, topLeft.y);
             
             // bottom left
             glTexCoord2f(glyph->minU, glyph->maxV);
-            glVertex2f(coordCache[0].x, coordCache[1].y);
+            glVertex2f(topLeft.x, bottomRight.y);
             
             // bottom right
             glTexCoord2f(glyph->maxU, glyph->maxV);
-            glVertex2f(coordCache[1].x, coordCache[1].y);
+            glVertex2f(bottomRight.x, bottomRight.y);
             
             // top right
             glTexCoord2f(glyph->maxU, glyph->minV);
-            glVertex2f(coordCache[1].x, coordCache[0].y);
+            glVertex2f(bottomRight.x, topLeft.y);
             
+            
+            topLeft.y -= glyph->offsetY;
             // move coord right
-            coordTopLeft.x = coordBottomRight.x;
+            topLeft.x = bottomRight.x;
         }
     }
     glEnd();

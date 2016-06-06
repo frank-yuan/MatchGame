@@ -20,8 +20,8 @@
 
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
 using namespace std;
 GameEngine engine;
 
@@ -68,6 +68,11 @@ class UpdaterTemp : public IUpdater
         }
         readStream.close();
         font = new Font(glyphs, tex);
+        // delete all glyphs
+        for (int i = 0; i < glyphs.size(); ++i)
+        {
+            delete glyphs[i];
+        }
         inited = true;
         
     }
@@ -77,26 +82,21 @@ class UpdaterTemp : public IUpdater
             Init();
         
         glClear( GL_COLOR_BUFFER_BIT );
-        font->Render("Hello, World!", 100 , 100, 3.14f/4);
-
         
-//        glBegin( GL_QUADS );
-//        tex->Bind();
-//        glTexCoord2f(0.f, 1.f);
-//        glVertex2f( -0.5f, -0.5f );
-//        glTexCoord2f(1.f, 1.f);
-//        glVertex2f( 0.5f, -0.5f );
-//        glTexCoord2f(1.f, 0.f);
-//        glVertex2f( 0.5f, 0.5f );
-//        glTexCoord2f(0.f, 0.f);
-//        glVertex2f( -0.5f, 0.5f );
-//        glEnd();
-        //std::cout << 1000.0f / engine.GetLastFrameTick() << std::endl;
+        font->Render("Hello, World!", 0 , 20, 0.1f);
+        font->Render("abcdefg", 100 , 100, 0.5f);
+        
+        font->Render("Hello, World!", 200 , 200, 1, 3.14f/4);
+        
+        font->Render("hijklmn!", 300 , 300);
+
     }
 };
 int main(int argc, const char * argv[]) {
     UpdaterTemp up;
     GameEngineConfig config(up);
+    config.width = SCREEN_WIDTH;
+    config.height = SCREEN_HEIGHT;
    
     engine.Start(config);
     return 0;
