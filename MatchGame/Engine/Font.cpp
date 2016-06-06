@@ -16,31 +16,55 @@
 const static int GLYPH_OFFSET = 31;
 const static float FLOAT_PRECISION = 0.00001f;
 
-struct GlyphInfo
+
+struct Font::FontImpl
 {
-    float minU;
-    float minV;
-    float maxU;
-    float maxV;
-    int width;
-    int height;
-    int offsetX;
-    int offsetY;
     
-    GlyphInfo(Glyph& glyph, int texWidth, int texHeight)
+    struct GlyphInfo
     {
-        minU = (float)glyph.x / texWidth;
-        minV = (float)glyph.y / texHeight;
-        maxU = (float)(glyph.x + glyph.w) / texWidth;
-        maxV = (float)(glyph.y + glyph.h) / texHeight;
-        width = glyph.w;
-        height = glyph.h;
-        offsetX = glyph.offsetX;
-        offsetY = glyph.offsetY;
-    }
+        float minU;
+        float minV;
+        float maxU;
+        float maxV;
+        int width;
+        int height;
+        int offsetX;
+        int offsetY;
+        
+        GlyphInfo(Glyph& glyph, int texWidth, int texHeight)
+        {
+            minU = (float)glyph.x / texWidth;
+            minV = (float)glyph.y / texHeight;
+            maxU = (float)(glyph.x + glyph.w) / texWidth;
+            maxV = (float)(glyph.y + glyph.h) / texHeight;
+            width = glyph.w;
+            height = glyph.h;
+            offsetX = glyph.offsetX;
+            offsetY = glyph.offsetY;
+        }
+    };
+    
+    const GlyphInfo* GetGlyphInfo(char c) const;
+    std::vector<const GlyphInfo*> mGlyphInfo;
+    std::shared_ptr<Texture> mTexture;
+    float mScale;
+    
+    FontImpl(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex);
+    
+    void Render(const std::string& text, const glm::mat4& transform);
+    void Render(const std::string& text, float x, float y, float scale, float rotation);
 };
 
-Font::Font(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex)
+
+const Font::FontImpl::GlyphInfo* Font::FontImpl::GetGlyphInfo(char c) const
+{
+    int index = c - GLYPH_OFFSET;
+    if (index < 0 || index >= mGlyphInfo.size())
+        return NULL;
+    return mGlyphInfo[index];
+}
+
+Font::FontImpl::FontImpl(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex)
 : mGlyphInfo(256 - GLYPH_OFFSET, NULL)
 , mTexture(tex)
 , mScale(1.f)
@@ -53,9 +77,10 @@ Font::Font(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex)
         mGlyphInfo[g->id - GLYPH_OFFSET] = new GlyphInfo(*g, mTexture->Width(), mTexture->Height());
         ++cIter;
     }
+    
 }
 
-void Font::Render(const std::string& text, float x, float y, float scale, float rotation)
+void Font::FontImpl::Render(const std::string& text, float x, float y, float scale, float rotation)
 {
     glm::mat4 mat;
     mat = glm::translate(mat, glm::vec3(x, y, 0.f));
@@ -65,11 +90,12 @@ void Font::Render(const std::string& text, float x, float y, float scale, float 
     
     if (fabsf(scale - 1.0f) > FLOAT_PRECISION)
         mat = glm::scale(mat, glm::vec3(scale, scale, 1.f));
-
+    
     Render(text, mat);
 }
 
-void Font::Render(const std::string& text, const glm::mat4& transform)
+
+void Font::FontImpl::Render(const std::string& text, const glm::mat4& transform)
 {
     if (text.length() == 0)
         return;
@@ -116,15 +142,25 @@ void Font::Render(const std::string& text, const glm::mat4& transform)
         }
     }
     glEnd();
-
-
 }
 
 
-const GlyphInfo* Font::GetGlyphInfo(char c) const
+Font::Font(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex)
+: mImpl(new FontImpl(config, tex))
 {
-    int index = c - GLYPH_OFFSET;
-    if (index < 0 || index >= mGlyphInfo.size())
-        return NULL;
-    return mGlyphInfo[index];
+}
+
+void Font::Render(const std::string& text, float x, float y, float scale, float rotation)
+{
+    mImpl->Render(text, x, y, scale, rotation);
+}
+
+void Font::Render(const std::string& text, const glm::mat4& transform)
+{
+    mImpl->Render(text, transform);
+}
+
+void Font::SetScale(float scale)
+{
+    mImpl->mScale = scale;
 }

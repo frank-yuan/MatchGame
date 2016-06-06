@@ -34,14 +34,11 @@ public:
     Font(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex);
     void Render(const std::string& text, float x, float y, float scale = 1.0f, float rotation = 0.f);
     void Render(const std::string& text, const glm::mat4& transform);
-    inline void SetScale(float scale){mScale = scale;}
+    void SetScale(float scale);
 private:
     Font(const Font&);
     Font& operator=(const Font&);
-    
-    const GlyphInfo* GetGlyphInfo(char c) const;
-    std::vector<const GlyphInfo*> mGlyphInfo;
-    std::shared_ptr<Texture> mTexture;
-    float mScale;
+    struct FontImpl;
+    std::unique_ptr<FontImpl> mImpl;
 };
 #endif /* Font_hpp */
