@@ -32,6 +32,8 @@ struct GameEngine::GameEngineImpl
     void Close();
 private:
     bool InitGL();
+    int mWidth;
+    int mHeight;
     
 
 };
@@ -40,12 +42,16 @@ GameEngine::GameEngineImpl::GameEngineImpl()
     : window(NULL)
     , lastTick(0)
     , quit(false)
+    , mWidth(0)
+    ,mHeight(0)
 {
 }
 
 bool GameEngine::GameEngineImpl::Init(const std::string& title, int width, int height)
 {
     bool success = true;
+    mWidth = width;
+    mHeight = height;
     //Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
@@ -99,9 +105,18 @@ bool GameEngine::GameEngineImpl::InitGL()
     bool success = true;
     GLenum error = GL_NO_ERROR;
     
+    //SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
+    //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    
+    glEnable(GL_TEXTURE_2D);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     //Initialize Projection Matrix
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
+    glOrtho(0, mWidth, mHeight, 0, -1, 1);
     
     //Check for error
     error = glGetError();
