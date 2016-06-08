@@ -9,37 +9,37 @@
 #ifndef GameEngine_hpp
 #define GameEngine_hpp
 
-#include <stdio.h>
-#include <string>
-#include <memory>
-#include "IUpdater.h"
-
-struct GameEngineConfig
+namespace XYGame
 {
-    std::string title;
-    int width;
-    int height;
-    int fpsLimit;
-    IUpdater& updater;
+    class IUpdater;
     
-    GameEngineConfig(IUpdater& updater);
-};
+    struct GameEngineConfig
+    {
+        std::string title;
+        int width;
+        int height;
+        int fpsLimit;
+        IUpdater& updater;
+        
+        GameEngineConfig(IUpdater& updater);
+    };
 
-class GameEngine
-{
-public:
-    GameEngine();
-    ~GameEngine();
-    
-    float Tick() const;
-    
-    bool Start(GameEngineConfig& config);
-    void Quit();
-    
-    Uint32 GetLastFrameTick() const;
-    
-private:
-    struct GameEngineImpl;
-    std::unique_ptr<GameEngineImpl> mImpl;
-};
+    class GameEngine
+    {
+    public:
+        GameEngine();
+        ~GameEngine();
+        
+        float Tick() const;
+        
+        bool Start(GameEngineConfig& config);
+        void Quit();
+        
+        Uint32 GetLastFrameTick() const;
+        
+    private:
+        struct GameEngineImpl;
+        std::unique_ptr<GameEngineImpl> mImpl;
+    };
+}
 #endif /* GameEngine_hpp */

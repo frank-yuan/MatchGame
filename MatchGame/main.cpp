@@ -6,23 +6,22 @@
 //  Copyright © 2016 frank-yuan. All rights reserved.
 //
 
-#include <SDL2/SDL.h>
-#include <iostream>
-#include <stdio.h>
-#include <OpenGL/glu.h>
-#include <memory>
-#include "Engine/Texture.hpp"
-#include "Engine/Font.hpp"
-#include "Engine/GameEngine.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <SDL2/SDL.h>
+#include <OpenGL/glu.h>
+#include "Engine/Texture.hpp"
+#include "Engine/Font.hpp"
+#include "Engine/GameEngine.hpp"
+#include "IUpdater.h"
 
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 using namespace std;
+using namespace XYGame;
 GameEngine engine;
 
 

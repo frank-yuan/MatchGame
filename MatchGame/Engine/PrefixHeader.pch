@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  MatchGame
+//
+//  Created by Xuan Yuan (Frank) on 6/8/16.
+//  Copyright © 2016 frank-yuan. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#include <iostream>
+
+#include <string>
+#include <memory>
+#include <vector>
+#include <map>
+
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+
+#endif /* PrefixHeader_pch */

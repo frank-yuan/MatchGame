@@ -9,12 +9,14 @@
 #ifndef IUpdater_h
 #define IUpdater_h
 
-class IUpdater
+namespace XYGame
 {
-public:
-    virtual void Update() = 0;
-protected:
-    ~IUpdater(){}
-};
-
+    class IUpdater
+    {
+    public:
+        virtual void Update() = 0;
+    protected:
+        ~IUpdater(){}
+    };
+}
 #endif /* IUpdater_h */

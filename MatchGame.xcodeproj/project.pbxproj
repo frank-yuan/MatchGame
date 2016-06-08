@@ -14,6 +14,7 @@
 		94AD16F01D00255000F3EB6C /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94AD16EE1D00255000F3EB6C /* Font.cpp */; };
 		94AD19041D054CBB00F3EB6C /* berlin_sans_demi_72_0.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94AD18FE1D0169BF00F3EB6C /* berlin_sans_demi_72_0.png */; };
 		94AD19051D054CBB00F3EB6C /* glyph.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94AD18FF1D0169BF00F3EB6C /* glyph.txt */; };
+		94AD19181D07CBDB00F3EB6C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 94AD19171D07CBDB00F3EB6C /* README.md */; };
 		94DF0C641CCDAB2000F4BDB7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94DF0C631CCDAB2000F4BDB7 /* main.cpp */; };
 		94DF0C6B1CCDABF200F4BDB7 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DF0C6A1CCDABF200F4BDB7 /* SDL2.framework */; };
 /* End PBXBuildFile section */
@@ -307,6 +308,8 @@
 		94AD18F81D0031B800F3EB6C /* vector_relational.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector_relational.hpp; sourceTree = "<group>"; };
 		94AD18FE1D0169BF00F3EB6C /* berlin_sans_demi_72_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = berlin_sans_demi_72_0.png; sourceTree = "<group>"; };
 		94AD18FF1D0169BF00F3EB6C /* glyph.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = glyph.txt; sourceTree = "<group>"; };
+		94AD19171D07CBDB00F3EB6C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		94AD19291D080B3400F3EB6C /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		94DF0C601CCDAB2000F4BDB7 /* MatchGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MatchGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DF0C631CCDAB2000F4BDB7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		94DF0C6A1CCDABF200F4BDB7 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = Framework/SDL2.framework; sourceTree = "<group>"; };
@@ -631,6 +634,7 @@
 		94DF0C571CCDAB2000F4BDB7 = {
 			isa = PBXGroup;
 			children = (
+				94AD19171D07CBDB00F3EB6C /* README.md */,
 				94A7FA251CEB61EE00D7F555 /* SDL2_image.framework */,
 				941651271CD1F2080046E0D1 /* OpenGL.framework */,
 				94DF0C6A1CCDABF200F4BDB7 /* SDL2.framework */,
@@ -661,6 +665,7 @@
 		94DF0C6C1CCDADFC00F4BDB7 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				94AD19291D080B3400F3EB6C /* PrefixHeader.pch */,
 				94AD17F61D0031B800F3EB6C /* external */,
 				947395801CCF0C7800F7DE6D /* GameEngine.cpp */,
 				947395811CCF0C7800F7DE6D /* GameEngine.hpp */,
@@ -739,6 +744,7 @@
 			files = (
 				94AD16F01D00255000F3EB6C /* Font.cpp in Sources */,
 				9416512D1CD337BC0046E0D1 /* Texture.cpp in Sources */,
+				94AD19181D07CBDB00F3EB6C /* README.md in Sources */,
 				94DF0C641CCDAB2000F4BDB7 /* main.cpp in Sources */,
 				947395821CCF0C7800F7DE6D /* GameEngine.cpp in Sources */,
 			);
@@ -840,6 +846,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Framework",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MatchGame/Engine/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "$(SRCROOT)/Resources";
@@ -855,6 +863,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Framework",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MatchGame/Engine/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = "$(SRCROOT)/Resources";
