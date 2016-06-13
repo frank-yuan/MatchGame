@@ -12,8 +12,8 @@
 struct SDL_Surface;
 namespace XYGame
 {
-class Texture
-{
+    class Texture
+    {
     public:
         static std::shared_ptr<Texture> LoadTexture(const std::string & filename);
         operator SDL_Surface*();

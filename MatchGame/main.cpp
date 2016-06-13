@@ -15,6 +15,8 @@
 #include "Engine/Font.hpp"
 #include "Engine/GameEngine.hpp"
 #include "IUpdater.h"
+#include "Engine/scene/SceneManager.hpp"
+#include "Engine/scene/SceneTexture.hpp"
 
 
 //Screen dimension constants
@@ -88,6 +90,8 @@ class UpdaterTemp : public IUpdater
         font->Render("Hello, World!", 200 , 200, 1, 3.14f/4);
         
         font->Render("hijklmn!", 300 , 300);
+        
+        shared_ptr<XYGame::SceneTexture> st = XYGame::SceneManager::CreateWidget<SceneTexture>();
 
     }
 };

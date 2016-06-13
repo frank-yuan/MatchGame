@@ -15,8 +15,12 @@
 		94AD19041D054CBB00F3EB6C /* berlin_sans_demi_72_0.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94AD18FE1D0169BF00F3EB6C /* berlin_sans_demi_72_0.png */; };
 		94AD19051D054CBB00F3EB6C /* glyph.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94AD18FF1D0169BF00F3EB6C /* glyph.txt */; };
 		94AD19181D07CBDB00F3EB6C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 94AD19171D07CBDB00F3EB6C /* README.md */; };
+		94AD19481D0815A800F3EB6C /* ScenePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94AD19401D0815A800F3EB6C /* ScenePanel.cpp */; };
+		94AD19491D0815A800F3EB6C /* SceneTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94AD19421D0815A800F3EB6C /* SceneTexture.cpp */; };
+		94AD194A1D0815A800F3EB6C /* SceneWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94AD19441D0815A800F3EB6C /* SceneWidget.cpp */; };
 		94DF0C641CCDAB2000F4BDB7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94DF0C631CCDAB2000F4BDB7 /* main.cpp */; };
 		94DF0C6B1CCDABF200F4BDB7 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DF0C6A1CCDABF200F4BDB7 /* SDL2.framework */; };
+		94F06F791D0D0038003E6CDD /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94F06F771D0D0038003E6CDD /* SceneManager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -310,9 +314,18 @@
 		94AD18FF1D0169BF00F3EB6C /* glyph.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = glyph.txt; sourceTree = "<group>"; };
 		94AD19171D07CBDB00F3EB6C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		94AD19291D080B3400F3EB6C /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		94AD19401D0815A800F3EB6C /* ScenePanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScenePanel.cpp; sourceTree = "<group>"; };
+		94AD19411D0815A800F3EB6C /* ScenePanel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScenePanel.hpp; sourceTree = "<group>"; };
+		94AD19421D0815A800F3EB6C /* SceneTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneTexture.cpp; sourceTree = "<group>"; };
+		94AD19431D0815A800F3EB6C /* SceneTexture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneTexture.hpp; sourceTree = "<group>"; };
+		94AD19441D0815A800F3EB6C /* SceneWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneWidget.cpp; sourceTree = "<group>"; };
+		94AD19451D0815A800F3EB6C /* SceneWidget.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneWidget.hpp; sourceTree = "<group>"; };
 		94DF0C601CCDAB2000F4BDB7 /* MatchGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MatchGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DF0C631CCDAB2000F4BDB7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		94DF0C6A1CCDABF200F4BDB7 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = Framework/SDL2.framework; sourceTree = "<group>"; };
+		94F06F771D0D0038003E6CDD /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
+		94F06F781D0D0038003E6CDD /* SceneManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneManager.hpp; sourceTree = "<group>"; };
+		94F06F7A1D0D0065003E6CDD /* Singleton.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Singleton.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -631,6 +644,21 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		94AD193A1D0815A800F3EB6C /* scene */ = {
+			isa = PBXGroup;
+			children = (
+				94F06F771D0D0038003E6CDD /* SceneManager.cpp */,
+				94F06F781D0D0038003E6CDD /* SceneManager.hpp */,
+				94AD19401D0815A800F3EB6C /* ScenePanel.cpp */,
+				94AD19411D0815A800F3EB6C /* ScenePanel.hpp */,
+				94AD19421D0815A800F3EB6C /* SceneTexture.cpp */,
+				94AD19431D0815A800F3EB6C /* SceneTexture.hpp */,
+				94AD19441D0815A800F3EB6C /* SceneWidget.cpp */,
+				94AD19451D0815A800F3EB6C /* SceneWidget.hpp */,
+			);
+			path = scene;
+			sourceTree = "<group>";
+		};
 		94DF0C571CCDAB2000F4BDB7 = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +694,7 @@
 			isa = PBXGroup;
 			children = (
 				94AD19291D080B3400F3EB6C /* PrefixHeader.pch */,
+				94AD193A1D0815A800F3EB6C /* scene */,
 				94AD17F61D0031B800F3EB6C /* external */,
 				947395801CCF0C7800F7DE6D /* GameEngine.cpp */,
 				947395811CCF0C7800F7DE6D /* GameEngine.hpp */,
@@ -674,6 +703,7 @@
 				9416512C1CD337BC0046E0D1 /* Texture.hpp */,
 				94AD16EE1D00255000F3EB6C /* Font.cpp */,
 				94AD16EF1D00255000F3EB6C /* Font.hpp */,
+				94F06F7A1D0D0065003E6CDD /* Singleton.hpp */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -742,10 +772,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94AD194A1D0815A800F3EB6C /* SceneWidget.cpp in Sources */,
+				94AD19491D0815A800F3EB6C /* SceneTexture.cpp in Sources */,
 				94AD16F01D00255000F3EB6C /* Font.cpp in Sources */,
 				9416512D1CD337BC0046E0D1 /* Texture.cpp in Sources */,
 				94AD19181D07CBDB00F3EB6C /* README.md in Sources */,
+				94F06F791D0D0038003E6CDD /* SceneManager.cpp in Sources */,
 				94DF0C641CCDAB2000F4BDB7 /* main.cpp in Sources */,
+				94AD19481D0815A800F3EB6C /* ScenePanel.cpp in Sources */,
 				947395821CCF0C7800F7DE6D /* GameEngine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

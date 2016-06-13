@@ -17,7 +17,9 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <list>
 #include <map>
+#include <set>
 
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
