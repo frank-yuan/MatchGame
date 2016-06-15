@@ -19,7 +19,7 @@ namespace XYGame {
     {
     public:
         void SetTexture(const std::string& texFileName);
-        std::string GetTextureFileName() const;
+        std::shared_ptr<Texture> GetTexture() const;
         void Render();
 
         virtual glm::mat4& GetTransform();

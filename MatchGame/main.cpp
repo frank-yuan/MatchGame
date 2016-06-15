@@ -32,6 +32,7 @@ class UpdaterTemp : public IUpdater
     Font* font;
     std::shared_ptr<Texture> tex;
     bool inited = false;
+    std::shared_ptr<SceneTexture> st[4];
     void Init()
     {
         tex = Texture::LoadTexture("Resources/berlin_sans_demi_72_0.png");
@@ -76,6 +77,16 @@ class UpdaterTemp : public IUpdater
         }
         inited = true;
         
+
+        st[0] = XYGame::SceneManager::CreateWidget<SceneTexture>(1);
+        st[0]->SetTexture("Resources/A.png");
+        st[1] = XYGame::SceneManager::CreateWidget<SceneTexture>(1);
+        st[1]->SetTexture("Resources/C.png");
+        st[2] = XYGame::SceneManager::CreateWidget<SceneTexture>(1);
+        st[2]->SetTexture("Resources/P.png");
+//        st[3] = XYGame::SceneManager::CreateWidget<SceneTexture>(0);
+//        st[3]->SetTexture("Resources/back.png");
+        
     }
     virtual void Update()
     {
@@ -84,14 +95,14 @@ class UpdaterTemp : public IUpdater
         
         glClear( GL_COLOR_BUFFER_BIT );
         
+        SceneManager::Instance()->Render();
         font->Render("Hello, World!", 0 , 20, 0.1f);
         font->Render("abcdefg", 100 , 100, 0.5f);
         
         font->Render("Hello, World!", 200 , 200, 1, 3.14f/4);
         
         font->Render("hijklmn!", 300 , 300);
-        
-        shared_ptr<XYGame::SceneTexture> st = XYGame::SceneManager::CreateWidget<SceneTexture>();
+
 
     }
 };

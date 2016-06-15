@@ -8,34 +8,47 @@
 
 #include "SceneWidget.hpp"
 #include "SceneTexture.hpp"
+#include "../Texture.hpp"
 #include <assert.h>
+#include <OpenGL/glu.h>
 
 namespace XYGame
 {
     SceneTexture::SceneTexture()
          : SceneWidget()
-         //, mTex(King::Engine::Texture::TEXTURE_BACKGROUND)
+         , mTex(NULL)
     {
     }
 
     void SceneTexture::Render(){
-        //GameEngine::Instance()->GetEngine().Render(mTex, GetTransform());
+        glLoadMatrixf(reinterpret_cast<const float*>(&mTransform));
+        
+        glBegin( GL_QUADS );
+        mTex->Bind();
+        glTexCoord2f(0.f, 1.f);
+        glVertex2f( -0.5f, -0.5f );
+        glTexCoord2f(1.f, 1.f);
+        glVertex2f( 0.5f, -0.5f );
+        glTexCoord2f(1.f, 0.f);
+        glVertex2f( 0.5f, 0.5f );
+        glTexCoord2f(0.f, 0.f);
+        glVertex2f( -0.5f, 0.5f );
+        glEnd();
     };
 
     void SceneTexture::SetTexture(const string& texFileName)
     {
-    //	assert(id >= King::Engine::Texture::TEXTURE_BACKGROUND && id < King::Engine::Texture::TEXTURE_MAX);
-    //
-    //	this->mTex = (King::Engine::Texture)id;
-    //	this->mTextureCenter = glm::vec2(
-    //		GameEngine::Instance()->GetEngine().GetTextureWidth(mTex) / 2.0f
-    //		, GameEngine::Instance()->GetEngine().GetTextureHeight(mTex) / 2.0f);
+        mTex = Texture::LoadTexture(texFileName);
+        assert(mTex.get() != NULL);
+        
+        	this->mTextureCenter = glm::vec2(
+        		mTex->Width() / 2.0f
+        		, mTex->Height() / 2.0f);
     }
 
-    string SceneTexture::GetTextureFileName() const
+    std::shared_ptr<Texture> SceneTexture::GetTexture() const
     {
-        //return (int)this->mTex;
-        return "";
+        return mTex;
     }
 
     glm::mat4& SceneTexture::GetTransform()

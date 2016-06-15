@@ -28,6 +28,7 @@ namespace XYGame
 
     void ScenePanel::Render()
     {
+        static std::shared_ptr<SceneWidget> cachedPtr;
         if (mEnableClip)
         {
             glScissor(mClipPosition.x, mClipPosition.y, mClipSize.x, mClipSize.y);
@@ -37,12 +38,20 @@ namespace XYGame
         {
             glDisable(GL_SCISSOR_TEST);
         }
-        for (SceneWidgetContainer::const_iterator iter = mContainer.begin();
-            iter != mContainer.end();
-            ++iter)
+        for (SceneWidgetContainer::iterator iter = mContainer.begin();
+            iter != mContainer.end();)
         {
-            std::shared_ptr<SceneWidget> ptr = std::shared_ptr<SceneWidget>(*iter);
-            ptr->Render();
+            if (iter->expired())
+            {
+                iter = mContainer.erase(iter);
+                continue;
+            }
+            else
+            {
+                cachedPtr = iter->lock();
+                cachedPtr->Render();
+            }
+            ++iter;
         }
     }
 
