@@ -21,18 +21,22 @@ namespace XYGame
     }
 
     void SceneTexture::Render(){
-        glLoadMatrixf(reinterpret_cast<const float*>(&mTransform));
         
-        glBegin( GL_QUADS );
+        glLoadIdentity();
+        glLoadMatrixf(reinterpret_cast<const float*>(&GetTransform()));
+        
         mTex->Bind();
-        glTexCoord2f(0.f, 1.f);
-        glVertex2f( -0.5f, -0.5f );
-        glTexCoord2f(1.f, 1.f);
-        glVertex2f( 0.5f, -0.5f );
-        glTexCoord2f(1.f, 0.f);
-        glVertex2f( 0.5f, 0.5f );
+        int width = mTex->Width();
+        int height = mTex->Height();
+        glBegin( GL_QUADS );
         glTexCoord2f(0.f, 0.f);
-        glVertex2f( -0.5f, 0.5f );
+        glVertex2f(0, 0);
+        glTexCoord2f(0.f, 1.f);
+        glVertex2f(0, height);
+        glTexCoord2f(1.f, 1.f);
+        glVertex2f(width, height);
+        glTexCoord2f(1.f, 0.f);
+        glVertex2f(width, 0);
         glEnd();
     };
 
@@ -41,7 +45,7 @@ namespace XYGame
         mTex = Texture::LoadTexture(texFileName);
         assert(mTex.get() != NULL);
         
-        	this->mTextureCenter = glm::vec2(
+        	this->mScaleCenter = glm::vec2(
         		mTex->Width() / 2.0f
         		, mTex->Height() / 2.0f);
     }
@@ -62,9 +66,9 @@ namespace XYGame
             }
             if (mScale != glm::vec2(1, 1))
             {
-                mTransform = glm::translate(mTransform, glm::vec3(mTextureCenter.x, mTextureCenter.y, 0.0f));
+                mTransform = glm::translate(mTransform, glm::vec3(mScaleCenter.x, mScaleCenter.y, 0.0f));
                 mTransform = glm::scale(mTransform, glm::vec3(mScale.x, mScale.y, 1.0f));
-                mTransform = glm::translate(mTransform, glm::vec3(-mTextureCenter.x, -mTextureCenter.y, 0.0f));
+                mTransform = glm::translate(mTransform, glm::vec3(-mScaleCenter.x, -mScaleCenter.y, 0.0f));
             }
         }
         return mTransform;

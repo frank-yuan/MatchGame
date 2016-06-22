@@ -102,8 +102,8 @@ namespace XYGame
 
         glm::vec4 topLeft = glm::vec4(0, 0, 0, 1);
         glm::vec4 bottomRight = glm::vec4(0, 0, 0, 1);
-        glBegin( GL_QUADS );
         mTexture->Bind();
+        glBegin( GL_QUADS );
         const char* textChar = text.c_str();
         
         char c;

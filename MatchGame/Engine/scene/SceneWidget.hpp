@@ -29,6 +29,9 @@ namespace XYGame
 
         inline float GetRotation() const {return mRotation;}
         inline void SetRotation(float rot){mRotation = rot; mIsDirty = true;}
+        
+        inline bool IsActive() const {return mActive;}
+        inline void SetActive(bool active) {mActive = active;}
 
         inline int GetPanelID() const {return mPanel;}
         
@@ -56,6 +59,7 @@ namespace XYGame
         int mPanel;
         glm::mat4 mTransform;
         bool mIsDirty;
+        bool mActive;
 
         friend class SceneManager;
     };

@@ -14,10 +14,10 @@ namespace XYGame
     class SceneWidget;
     
     template <class T>
-    struct wptr_less_than
+    struct wptr_pointer_less_than
     {
         bool operator() ( const std::weak_ptr<T>& lhs, const std::weak_ptr<T>& rhs ) const {
-            return lhs.expired() || (!rhs.expired() && *lhs.lock() < *rhs.lock());
+            return lhs.expired() || (!rhs.expired() && lhs.lock().get() < rhs.lock().get());
         }
     };
     
@@ -36,14 +36,14 @@ namespace XYGame
         ScenePanel& operator=(const ScenePanel&);
         inline void SetPanelID(int panelId){mID = panelId;}
 
-        void AddWidget(std::shared_ptr<SceneWidget> widget);
+        void AddWidget(const std::shared_ptr<SceneWidget>& widget);
         void Render();
 
 
     private:
         int mID;
         
-        typedef std::set<std::weak_ptr<SceneWidget>, wptr_less_than<SceneWidget> > SceneWidgetContainer;
+        typedef std::set<std::weak_ptr<SceneWidget>, wptr_pointer_less_than<SceneWidget> > SceneWidgetContainer;
         SceneWidgetContainer mContainer;
         
         bool mEnableClip;

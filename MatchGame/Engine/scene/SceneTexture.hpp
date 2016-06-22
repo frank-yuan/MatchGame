@@ -32,7 +32,7 @@ namespace XYGame {
         
     private:
         std::shared_ptr<Texture> mTex;
-        glm::vec2 mTextureCenter;
+        glm::vec2 mScaleCenter;
 
         friend class SceneManager;
     };

@@ -18,6 +18,7 @@ namespace XYGame
         , mPanel(0)
         , mDepth(0)
         , mIsDirty(true)
+        , mActive(true)
     {
     }
     

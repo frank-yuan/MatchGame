@@ -21,7 +21,7 @@ namespace XYGame
     {
     }
 
-    void ScenePanel::AddWidget(shared_ptr<SceneWidget> widget)
+    void ScenePanel::AddWidget(const shared_ptr<SceneWidget>& widget)
     {
         mContainer.insert(widget);
     }
@@ -49,7 +49,8 @@ namespace XYGame
             else
             {
                 cachedPtr = iter->lock();
-                cachedPtr->Render();
+                if (cachedPtr->IsActive())
+                    cachedPtr->Render();
             }
             ++iter;
         }

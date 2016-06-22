@@ -80,14 +80,17 @@ class UpdaterTemp : public IUpdater
 
         st[0] = XYGame::SceneManager::CreateWidget<SceneTexture>(1);
         st[0]->SetTexture("Resources/A.png");
+        st[0]->SetPosition(200, 400);
         st[1] = XYGame::SceneManager::CreateWidget<SceneTexture>(1);
         st[1]->SetTexture("Resources/C.png");
+        st[1]->SetPosition(120, 120);
+        st[1]->SetScale(.5f, .5f);
         st[2] = XYGame::SceneManager::CreateWidget<SceneTexture>(1);
-        st[2]->SetTexture("Resources/P.png");
-//        st[3] = XYGame::SceneManager::CreateWidget<SceneTexture>(0);
-//        st[3]->SetTexture("Resources/back.png");
+        st[2]->SetTexture("Resources/O.png");
+        st[2]->SetPosition(320, 320);
         
     }
+    
     virtual void Update()
     {
         if (!inited)
@@ -95,12 +98,13 @@ class UpdaterTemp : public IUpdater
         
         glClear( GL_COLOR_BUFFER_BIT );
         
+        
         SceneManager::Instance()->Render();
         font->Render("Hello, World!", 0 , 20, 0.1f);
         font->Render("abcdefg", 100 , 100, 0.5f);
         
         font->Render("Hello, World!", 200 , 200, 1, 3.14f/4);
-        
+
         font->Render("hijklmn!", 300 , 300);
 
 
