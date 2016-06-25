@@ -17,6 +17,7 @@ namespace XYGame
     public:
         static std::shared_ptr<Texture> LoadTexture(const std::string & filename);
         operator SDL_Surface*();
+        ~Texture();
 
         int Width() const;
         int Height() const;
@@ -24,14 +25,13 @@ namespace XYGame
         
     private:
         Texture(const std::string & filename);
-        Texture(const Texture& );
-        Texture& operator= (const Texture&);
+        Texture(const Texture& );        Texture& operator= (const Texture&);
         static void DeleteTexture(unsigned int* textureId);
         
     private:
         std::unique_ptr<SDL_Surface, void(*)(SDL_Surface*)> mSurface;
         std::unique_ptr<unsigned int,void(*)(unsigned int*)> mTextureId;
-        int mReferenceCount;
+        std::string mPath;;
     };
 }
 #endif /* Texture_hpp */

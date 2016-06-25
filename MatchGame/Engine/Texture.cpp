@@ -27,7 +27,7 @@ namespace XYGame
     Texture::Texture(const string & filename)
     : mSurface(IMG_Load(filename.c_str()), SDL_FreeSurface)
     , mTextureId(new unsigned int, &DeleteTexture)
-    , mReferenceCount(0){
+    , mPath(filename){
         cout << "Loading Texture" << filename << endl;
         if (mSurface == nullptr) {
             throw std::runtime_error(std::string("Unable to load texture ") + filename);
@@ -52,6 +52,13 @@ namespace XYGame
         glTexImage2D(GL_TEXTURE_2D, 0, mode, mSurface->w, mSurface->h, 0, mode, GL_UNSIGNED_BYTE, mSurface->pixels);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    }
+    
+    Texture::~Texture()
+    {
+#if DEBUG
+        std::cout << "Deleting texture" << mPath << std::endl;
+#endif
     }
 
     void Texture::DeleteTexture(unsigned int* textureId) {
