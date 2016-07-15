@@ -5,9 +5,11 @@
 //  Created by Xuan Yuan (Frank) on 6/08/16.
 //  Copyright © 2016 frank-yuan. All rights reserved.
 //
-#include "SceneWidget.hpp"
+
 #ifndef SceneTexture_hpp
 #define SceneTexture_hpp
+
+#include "SceneWidget.hpp"
 
 namespace XYGame {
     

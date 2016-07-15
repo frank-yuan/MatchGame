@@ -29,52 +29,14 @@ GameEngine engine;
 
 class UpdaterTemp : public IUpdater
 {
-    Font* font;
     std::shared_ptr<Texture> tex;
     bool inited = false;
     std::shared_ptr<SceneTexture> st[4];
     void Init()
     {
         tex = Texture::LoadTexture("Resources/berlin_sans_demi_72_0.png");
-        
-        ifstream readStream;
-        readStream.open("Resources/glyph.txt");
-        std::vector<Glyph*> glyphs;
-        char buff[128];
-        if (readStream.is_open())
-        {
-            while (!readStream.eof())
-            {
-                readStream.getline(buff, 128);
-                stringstream ss(buff);
-                if (!ss.eof())
-                {
-                    Glyph* g = new Glyph();
-                    int* pg = (int*)(g);
-                    int v;
-                    int imax = sizeof(Glyph) / sizeof(int);
-                    int i = 0;
-                    while (ss >> v && i++ < imax)
-                    {
-                        *pg++ = v;
-                        if (ss.peek() == ',')
-                            ss.ignore();
-                    }
-                    if (g->id > 0)
-                        glyphs.push_back(g);
-                    else
-                        delete g;
-                }
-                
-            }
-        }
-        readStream.close();
-        font = new Font(glyphs, tex);
-        // delete all glyphs
-        for (int i = 0; i < glyphs.size(); ++i)
-        {
-            delete glyphs[i];
-        }
+        SceneManager::Instance()->LoadFont(0, std::string("Resources/glyph.txt"), tex);
+
         inited = true;
         
 
@@ -86,27 +48,38 @@ class UpdaterTemp : public IUpdater
         st[1]->SetPosition(120, 120);
         st[1]->SetScale(.5f, .5f);
         st[2] = XYGame::SceneManager::CreateWidget<SceneTexture>(1);
-        st[2]->SetTexture("Resources/O.png");
+        st[2]->SetTexture("Resources/C.png");
         st[2]->SetPosition(320, 320);
         
     }
     
+    int frame = 0;
     virtual void Update()
     {
         if (!inited)
             Init();
         
+        ++frame;
+        
         glClear( GL_COLOR_BUFFER_BIT );
-        
-        
-        SceneManager::Instance()->Render();
-        font->Render("Hello, World!", 0 , 20, 0.1f);
-        font->Render("abcdefg", 100 , 100, 0.5f);
-        
-        font->Render("Hello, World!", 200 , 200, 1, 3.14f/4);
 
-        font->Render("hijklmn!", 300 , 300);
+        SceneManager::Instance()->RenderScene();
+        const Font* font = SceneManager::Instance()->GetFont(0);
+        if (font)
+        {
+            font->Render("Hello, World!", 0 , 20, 0.1f);
+            font->Render("abcdefg", 100 , 100, 0.5f);
+            
+            font->Render("Hello, World!", 200 , 200, 1, 3.14f/4);
 
+            font->Render("hijklmn!", 300 , 300);
+        }
+        if (frame == 100)
+        {
+            st[2].reset();
+        }
+        if (frame == 200)
+            st[1].reset();
 
     }
 };

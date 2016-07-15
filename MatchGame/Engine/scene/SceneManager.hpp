@@ -5,6 +5,8 @@
 
 namespace XYGame
 {
+    class Texture;
+    class Font;
     class SceneWidget;
     class ScenePanel;
     class SceneManager : public Singleton<SceneManager>
@@ -29,9 +31,14 @@ namespace XYGame
         ~SceneManager();
 
         
-        void Render();
+        void RenderScene();
 
         int GetWidgetsCount() const;
+        
+        const Font* LoadFont(int fontId, const std::string& glyphPath, std::shared_ptr<Texture> tex);
+        void UnloadFont(int fontId);
+        
+        const Font* GetFont(int fontId) const;
 
     private:
         SceneManager(const SceneManager&);
@@ -42,5 +49,6 @@ namespace XYGame
     private:
         typedef std::list<ScenePanel*> ScenePanelContainer;
         ScenePanelContainer mContainer;
+        std::map<int, const Font*> mFontMap;
     };
 }

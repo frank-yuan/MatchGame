@@ -11,16 +11,6 @@
 
 namespace XYGame
 {
-    struct Glyph
-    {
-        int id;
-        int x;
-        int y;
-        int w;
-        int h;
-        int offsetX;
-        int offsetY;
-    };
 
     struct GlyphInfo;
     class Texture;
@@ -29,10 +19,10 @@ namespace XYGame
     class Font
     {
     public:
-        Font(const std::vector<Glyph*>& config, std::shared_ptr<Texture> tex);
-        void Render(const std::string& text, float x, float y, float scale = 1.0f, float rotation = 0.f);
-        void Render(const std::string& text, const glm::mat4& transform);
-        void SetScale(float scale);
+        Font(const std::vector<std::vector<int> >& config, std::shared_ptr<Texture> tex);
+        void Render(const std::string& text, float x, float y, float scale = 1.0f, float rotation = 0.f) const;
+        void Render(const std::string& text, const glm::mat4& transform) const;
+        ~Font();
     private:
         Font(const Font&);
         Font& operator=(const Font&);
