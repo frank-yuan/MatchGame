@@ -107,13 +107,12 @@ namespace XYGame
         bool success = true;
         GLenum error = GL_NO_ERROR;
         
-        //SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
-        //SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 0);
+        SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
         
         glEnable(GL_TEXTURE_2D);
-        glClearColor(0.0, 0.0, 0.0, 1.0);
-    //    glEnable(GL_BLEND);
-    //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
         //Initialize Projection Matrix
         glMatrixMode( GL_PROJECTION );
